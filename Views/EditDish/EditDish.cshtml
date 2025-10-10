@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Edit Dishes and Menu";
+}
+@model Menu
+
+<div class="m-3 p-3 text-center">
+    <h1 class="display-4 text-center">Edit Dishes and Menu</h1>
+
+    <ol class="breadcrumb d-flex justify-content-start p-3 m-5">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="AdminPage">Admin Page</a></li>
+        <li class="breadcrumb-item active">Edit Dishes</li>
+    </ol>
+</div>
+ @if (ViewData["ErrorMessage"] != null)
+{
+   <div class="alert alert-danger m-3">
+       <p>@ViewData["ErrorMessage"]</p>
+   </div>
+}
+@if (ViewData["Success"] != null)
+{
+    <div class="alert alert-success m-3">
+        <p>@ViewData["Success"]</p>
+    </div>
+}
+<div class="accordion mb-4 p-2" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Get Dish by Id
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+                <form asp-action="GetDishById" asp-controller="EditDish" method="get">
+                    <fieldset>
+                        <div>
+                            <label for="DishIdInput" class="form-label mt-4">Dish Id</label>
+                            <input type="number" class="form-control mb-4" id="DishIdInput" name="dishId" aria-describedby="DishId" placeholder="Enter Dish Id:">
+                            <button type="submit" class="btn btn-primary">Get Dish Info</button>
+                        </div>
+                    </fieldset>
+                </form>               
+            </div>
+           
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Create Dish
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+                <form asp-action="CreateDish" asp-controller="EditDish" method="post">
+                    <fieldset>
+                        <div class="mb-3">
+                            <label for="DishName" class="form-label">Dish Name</label>
+                            <input type="text" class="form-control" id="DishName" name="DishName" placeholder="Enter Dish Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Price" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="Price" name="Price" placeholder="Enter Price" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Description" class="form-label">Description</label>
+                            <textarea class="form-control" id="Description" name="Description" rows="3" placeholder="Enter Description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Category" class="form-label">Category</label>
+                            <select class="form-select" id="Category" name="Category" placeholder="Enter Category">
+                                <option value="Starters">Starters</option>
+                                <option value="Salad">Salad</option>
+                                <option value="Mains">Mains</option>
+                                <option value="Dessert">Dessert</option>                                
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Allergen" class="form-label">Allergens</label>
+                            <select class="form-select" id="Allergen" name="Allergen">
+                                <option value="None">None</option>
+                                <option value="Gluten">Gluten</option>
+                                <option value="Eggs">Eggs</option>
+                                <option value="Lactose">Lactose</option>
+                                <option value="Nuts">Nuts</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="IsPopular" class="form-label">Is Popular</label>
+                            <select class="form-select" id="IsPopular" name="IsPopular">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ImageUrl" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="ImageUrl" name="ImageUrl" placeholder="Enter Image URL">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Dish</button>
+                    </fieldset>
+                </form>
+           </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Update dish
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+                <!-- Form to input the ID of the dish to update -->
+                <form asp-action="UpdateDish" asp-controller="EditDish" method="get">
+                    <fieldset>
+                        <div class="mb-3">
+                            <label for="DishId" class="form-label">Dish ID</label>
+                            <input type="number" class="form-control" id="DishId" name="DishId" placeholder="Enter Dish ID" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Load Dish for Update</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                Delete Dish
+            </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+                <form asp-action="DeleteDish" asp-controller="EditDish" method="post">
+                    <fieldset>
+                        <div>
+                            <label for="DishIdInput" class="form-label mt-4">Dish Id</label>
+                            <input type="number" class="form-control mb-4" id="DishIdInput" name="id" aria-describedby="DishId" placeholder="Enter Dish Id:">
+                            <button type="submit" class="btn btn-primary">Delete Dish</button>
+                        </div>
+                    </fieldset>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Dish Details</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Name:</strong> @Model.DishName</p>
+            <p><strong>Price:</strong> $@Model.Price</p>
+            <p><strong>Description:</strong> @Model.Description</p>
+            <p><strong>Category:</strong> @Model.Category</p>
+            <p><strong>Allergens:</strong> @Model.Allergen</p>
+            <p><strong>Popular:</strong> @(Model.IsPopular ? "Yes" : "No")</p>
+            <img src="@Model.ImageUrl" alt="Dish Image" class="img-fluid" />
+        </div>
+    </div>
+}
+

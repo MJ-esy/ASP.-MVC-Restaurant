@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Update Dish";
+}
+@model Menu
+
+<div class="m-3 p-3 text-center">
+    <h1 class="display-4 text-center">Edit Dishes and Menu</h1>
+
+    <ol class="breadcrumb d-flex justify-content-start p-3 m-5">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="AdminPage">Admin Page</a></li>
+        <li class="breadcrumb-item"><a asp-controller="EditDish" asp-action="EditDishIndex">Edit Dishes</a></li>
+        <li class="breadcrumb-item active">Update Dish</li>
+    </ol>
+</div>
+<div>
+    <!-- Form to update the dish details -->
+  
+        <form class="mb-4" asp-action="UpdateDish" asp-controller="EditDish" method="post">
+        <label class="form-label mt-4" for="readOnlyInput">Dish Id:</label>
+        <input class="form-control" asp-for="DishId" id="readOnlyInput" name="DishId" placeholder="@Model.DishId" readonly="">
+            <div class="mb-3">
+                <label for="DishName" class="form-label">DishName</label>
+                <input type="text" class="form-control" id="DishName" name="DishName" value="@Model.DishName" required>
+            </div>
+            <div class="mb-3">
+                <label for="Price" class="form-label">Price</label>
+                <input type="number" class="form-control" id="Price" name="Price" value="@Model.Price" required>
+            </div>
+            <div class="mb-3">
+                <label for="Description" class="form-label">Description</label>
+                <textarea class="form-control" id="Description" name="Description" rows="3">@Model.Description</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="Category" class="form-label">Category</label>
+                    <select class="form-select" id="Category" name="Category">
+                        <option value="Starters" selected="@(Model.Category == "Starters")">Starters</option>
+                        <option value="Salad" selected="@(Model.Category == "Salad")">Salad</option>
+                        <option value="Mains" selected="@(Model.Category == "Mains")">Mains</option>
+                        <option value="Dessert" selected="@(Model.Category == "Dessert")">Dessert</option>
+                    </select>
+            </div>
+            <div class="mb-3">
+                <label for="Allergen" class="form-label">Allergen</label>
+                    <select class="form-select" id="Allergen" name="Allergen">
+                        <option value="None" selected="@(Model.Allergen == "None")">None</option>
+                        <option value="Gluten" selected="@(Model.Allergen == "Gluten")">Gluten</option>
+                        <option value="Eggs" selected="@(Model.Allergen == "Eggs")">Eggs</option>
+                        <option value="Lactose" selected="@(Model.Allergen == "Lactose")">Lactose</option>
+                        <option value="Nuts" selected="@(Model.Allergen == "Nuts")">Nuts</option>
+                   </select>
+            </div>
+            <div class="mb-3">
+                <label for="IsPopular" class="form-label">IsPopular</label>
+                   <select class="form-select" id="IsPopular" name="IsPopular">
+                        <option value="true" selected="@(Model.IsPopular)">Yes</option>
+                        <option value="false" selected="@(!Model.IsPopular)">No</option>
+                   </select>
+            </div>
+            <div class="mb-3">
+                <label for="ImageUrl" class="form-label">Image URL</label>
+                   <input type="url" class="form-control" id="ImageUrl" name="ImageUrl" value="@Model.ImageUrl">
+            </div>
+            <button type="submit" class="btn btn-success">Update Dish</button>
+        </form>
+               
+</div>

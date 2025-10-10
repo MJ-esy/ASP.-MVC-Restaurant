@@ -1,4 +1,5 @@
 ﻿using ASP.MVC.Models;
+using System.Net;
 using System.Text.Json;
 
 namespace ASP.MVC.Services.MenuServices
@@ -22,9 +23,17 @@ namespace ASP.MVC.Services.MenuServices
             try
             {
                 var response = await _client.GetAsync($"Dish/id?id={id}");
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null; // Dish not found
+                }
+
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new HttpRequestException($"Request failed with status code {response.StatusCode}");
+                    // Log the error for debugging
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"API Error: {errorContent}");
+                    return null; // Return null for non-successful responses
                 }
 
                 var content = await response.Content.ReadFromJsonAsync<Menu>();
@@ -32,11 +41,12 @@ namespace ASP.MVC.Services.MenuServices
             }
             catch (Exception ex)
             {
+                // Log the exception
+                Console.WriteLine($"Error fetching menu item with ID {id}: {ex.Message}");
                 throw new Exception($"Error fetching menu item with ID {id}: {ex.Message}", ex);
             }
         }
-           
-        
+       
 
         public async Task<bool> CreateMenuItem(Menu newMenuItem)
         {
