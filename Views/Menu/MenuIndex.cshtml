@@ -1,14 +1,127 @@
 ﻿@{
     ViewData["Title"] = "Menu";
 }
+@model List<Menu>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to the ASP.MVC Restaurant</h1>
-    <h2>Menu</h2>
+<div class="m-3 p-3 text-center">
+    <h1 class="display-4 b"><strong>Menu</strong></h1>
 
-    <div>MENU PAGES</div>
+    <div class="container border-secondary p-4 mb-5 mt-5">
+        @if (!Model.Any())
+        {
+            <div> Menu does not exists</div>
+        }
+        else
+        {
 
-    <div>popular food/drinks, pics</div>
+            <h2 class="text-decoration-underline">Starters</h2>
+            <div class="row justify-content-center">
+                
+                @foreach (var dish in Model.Where(d => d.Category == "Starters"))
+                {
+                    <ul class="list-unstyled p-1 col-lg-4 col-md-6 col-sm-12">
+                        <li class="d-flex justify-content-center"><partial name="_DishCard" model="dish" /></li>
+                    </ul>
 
-    <span>links to other pages, i.e.:Booking</span>
+                }
+                
+
+                <h2 class="text-decoration-underline mt-4">Sallad</h2>
+                @foreach (var dish in Model.Where(d => d.Category == "Salad"))
+                {
+                    <ul class="list-unstyled p-1 col-lg-4 col-md-6 col-sm-12">
+                        <li class="d-flex justify-content-center"><partial name="_DishCard" model="dish" /></li>
+                    </ul>
+
+                }
+
+                <h2 class="text-decoration-underline mt-4">Mains</h2>
+                @foreach (var dish in Model.Where(d => d.Category == "Mains"))
+                {
+                    <ul class="list-unstyled p-1 col-lg-4 col-md-6 col-sm-12">
+                        <li class="d-flex justify-content-center"><partial name="_DishCard" model="dish" /></li>
+                    </ul>
+
+                }
+
+                <h2 class="text-decoration-underline mt-4">Dessert</h2>
+                @foreach (var dish in Model.Where(d => d.Category == "Dessert"))
+                {
+                    <ul class="list-unstyled p-1 col-lg-4 col-md-6 col-sm-12">
+                        <li class="d-flex justify-content-center"><partial name="_DishCard" model="dish" /></li>
+                    </ul>
+
+                }
+                
+                <h2 class="text-decoration-underline mt-4">Dessert</h2>
+                @foreach (var dish in Model.Where(d => d.Category == "Dessert"))
+                {
+                    <ul class="list-unstyled p-1 col-lg-4 col-md-6 col-sm-12">
+                        <li class="d-flex justify-content-center"><partial name="_DishCard" model="dish" /></li>
+                    </ul>
+
+                }
+            </div>
+        }
+
+    </div>
+  
+
+     @if (!Model.Any())
+    {
+        <div> Menu does not exists</div>
+    }
+    else
+    {
+        <div class="card mb-3">
+            <h2 class="card-header">Popular Dishes</h2>
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @{
+                        var popularDishes = Model.Where(d => d.IsPopular).ToList();
+                        for (int i = 0; i < popularDishes.Count; i++)
+                        {
+                            var dish = popularDishes[i];
+                    }
+                    }
+                    @for (int i = 0; i < popularDishes.Count; i++)
+                    {
+                        var dish = popularDishes[i];
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="card-body">
+                                <h4 class="card-title">@dish.DishName</h4>
+                                <h6 class="card-subtitle text-danger-emphasis">@dish.Allergen</h6>
+                            </div>
+                            <img src="@dish.ImageUrl" class="d-block mx-auto user-select-none imgDish-responsive" height="200" aria-label="Image of: @dish.Description" />
+
+                            <div class="card-body">
+                                <p class="card-text">@dish.Description</p>
+                            </div>
+                           
+                        </div>
+                    }
+                    
+                </div>
+
+                <button class="carousel-control-prev"  type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" style="background-color:black"  aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next"  type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" style="background-color:black" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                </div>
+            </div>
+        }
+   
+    <div class="display:flex mt-4 p-1 text-center">
+        <span class="text-primary-emphasis">Book a table</span>
+        <div class="p-3 justify-content-center">
+            <button type="button" class="btn btn-outline-primary">
+                <a class="nav-link" asp-area="" asp-controller="Booking" asp-action="Booking">Booking</a>
+            </button>
+
+        </div>
+    </div>
 </div>

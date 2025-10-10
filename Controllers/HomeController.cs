@@ -1,32 +1,25 @@
-using ASP.MVC.Models;
+using ASP.MVC.Services.MenuServices;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace ASP.MVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMenuServices _menuServices;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IMenuServices menuServices)
         {
             _logger = logger;
+            _menuServices = menuServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var menuItems = await _menuServices.GetMenuItems();
+            return View(menuItems);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }       
     }
 }

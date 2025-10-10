@@ -1,13 +1,85 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model List<Menu>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to the ASP.MVC Restaurant</h1>
+<div class="m-3 p-3 text-center">
+    <h1 class="display-4">Welcome to ASP.MVC Restaurant</h1>
 
-    <p>Restaurant Intro: koncept, feeling, specialty etc.</p>
+    <h4 class="mt-4">
+  Specializes in Nordic cuisine with a Mediterranean twist <br />
+  <small class="text-body-secondary" style="font-size:smaller; text-transform:capitalize;"> The ASP.MVC highlights fresh, seasonal ingredients and offers a refined menu featuring seafood, oysters, 
+        and Scandinavian classics reimagined with French and Mediterranean influences — all served in an elegant yet welcoming setting.</small>
+</h4>
+   
+<div class="overflow-hidden m-3" style="height:70vh">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4noMlSexzwccZAVNgymUOQJrKfGP3PRM7IDJBUWUcEuvyHzljH0sxxWynx6uQyGM2mIXZUIrlsil0UMJqx_RmXUCJOnXZq0oZgebVi6XEFVo5b7Zd76qKbWJD-pYraJh6dvTr6Ap=s1360-w1360-h1020-rw"
+             alt="Evening view of the restaurant with tables and utensils on it"
+             class="w-100 h-100 rounded-3 object-fit-cover" 
+             style="object-position: center"/>
+</div>
 
-    <div>popular food/drinks, pics</div>
+    @if (!Model.Any())
+    {
+        <div> Menu does not exists</div>
+    }
+    else
+    {
+        <div class="card mb-3 mt-4">
+            <h2 class="card-header">Popular Dishes</h2>
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @{
+                        var popularDishes = Model.Where(d => d.IsPopular).ToList();
+                        for (int i = 0; i < popularDishes.Count; i++)
+                        {
+                            var dish = popularDishes[i];
+                    }
+                    }
+                    @for (int i = 0; i < popularDishes.Count; i++)
+                    {
+                        var dish = popularDishes[i];
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="card-body">
+                                <h4 class="card-title">@dish.DishName</h4>
+                                <h6 class="card-subtitle text-danger-emphasis">@dish.Allergen</h6>
+                            </div>
+                            <img src="@dish.ImageUrl" class="d-block mx-auto user-select-none imgDish-responsive" height="200" aria-label="Image of: @dish.Description" />
 
-    <span>links to other pages, i.e.: Meny / Booking</span>
+                            <div class="card-body">
+                                <p class="card-text">@dish.Description</p>
+                            </div>
+                           
+                        </div>
+                    }
+                    
+                </div>
+
+                <button class="carousel-control-prev"  type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" style="background-color:black"  aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next"  type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" style="background-color:black" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                </div>
+            </div>
+        
+    }
+
+  
+    <div class="display:flex mt-4 p-1 text-center">
+        <span class="text-primary-emphasis">Browse through the menu or Book a table</span>
+        <div class="p-3 justify-content-center">
+                <button type="button" class="btn btn-outline-primary">
+                    <a class="nav-link" aria-current="page" asp-area="" asp-controller="Menu" asp-action="MenuIndex">Menu</a>
+                </button>
+                <button type="button" class="btn btn-outline-primary">
+                    <a class="nav-link" asp-area="" asp-controller="Booking" asp-action="Booking">Booking</a>
+                </button>
+        
+        </div>
+    </div>
+    
 </div>

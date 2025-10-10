@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="m-3 p-3">
+    <h1 class="display-4 text-center">Welcome to the Admin Page</h1>
+
+    <form asp-controller="Admin" asp-action="Login" method="post" class="mt-4">
+        <fieldset>
+            <legend>Login to continue</legend>
+            <div>
+                <label for="Username" class="form-label mt-4">Username:</label>
+                <input type="text" class="form-control" id="username" name="Username" placeholder="Enter your Username" required />
+            </div>
+            <div class="mb-4">
+                <label for="Password" class="form-label mt-4">Password</label>
+                <input type="password" class="form-control" id="password" name="Password" placeholder="Enter your Password" autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+    </form>
+
+</div>
+

@@ -1,0 +1,11 @@
+﻿@model Menu
+
+<div class="card border-light mb-3" style="max-width: 20rem;">
+    <div class="card-body">
+        <h4 class="card-title">@Model.DishName</h4>
+        <p class="card-text tex-center">@Model.Description</p>
+        <ul class="list-unstyled">            
+            <li class="text-center" style="background-color:beige"> @Model.Allergen</li>
+            <li class="d-flex justify-content-end">@Model.Price</li>
+        </ul>
+    </div>

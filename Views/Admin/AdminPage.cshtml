@@ -2,9 +2,21 @@
     ViewData["Title"] = "Admin Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to the ASP.MVC Restaurant</h1>
-    <h2>Admin Page</h2>
-    <div>Login to continue</div>
+<div class="m-3 p-3 text-center">
+    <h1 class="display-4 text-center mb-4">Welcome to the Admin Page</h1>
+    
+    <ol class="breadcrumb d-flex justify-content-start p-3 m-5">
+        <li class="breadcrumb-item active">Admin Page</li>
+    </ol>
 
+    <div>
+        <h2 class="text-decoration-underline mt-4">Manage Bookings</h2>
+        <a class="btn btn-primary btn-lg m-3">Go to Manage Bookings</a>
+
+        <h2 class="text-decoration-underline mt-4">Manage Menu</h2>
+        <a asp-controller="EditDish" asp-action="EditDishIndex" class="btn btn-primary btn-lg m-3">Go to Manage Dishes</a>
+
+        <h2 class="text-decoration-underline mt-4">Manage Tables</h2>
+        <a class="btn btn-primary btn-lg m-3">Go to Manage Tables</a>
+    </div>  
 </div>
