@@ -36,9 +36,14 @@
                 
                 @if(hasJwt)
                 {
-                    <form asp-controller="Admin" asp-action="Logout" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger">Logout</button>
-                    </form>
+                    <div>
+                        <a class="btn btn-light" asp-controller="Admin" asp-action="AdminPage">Admin Page</a>
+
+                        <form asp-controller="Admin" asp-action="Logout" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </div>
+                    
                 }
                 else
                 {
@@ -49,11 +54,11 @@
        
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 mb-4">
             @RenderBody()
         </main>
     </div>
-
+    <br/>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2025 - ASP.MVC 
