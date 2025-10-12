@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "All Bookings";
+}
+@model List<Booking>
+<div class="m-3 p-3 text-center">
+    <h1 class="display-4 text-center">All Bookings</h1>
+
+    <ol class="breadcrumb d-flex justify-content-start p-3 m-5">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="AdminPage">Admin Page</a></li>
+        <li class="breadcrumb-item"><a asp-controller="EditBooking" asp-action="EditBookings">Edit Bookings</a></li>
+        <li class="breadcrumb-item active">All Bookings</li>
+    </ol>
+</div>
+
+@if (ViewData["ErrorMessage"] != null)
+{
+   <div class="alert alert-danger m-3">
+       <p>@ViewData["ErrorMessage"]</p>
+   </div>
+}
+
+@if(Model!= null)
+{   
+        <table class="table table-hover">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Booking ID</th>
+              <th scope="col">Guest Name</th>
+              <th scope="col">Table Number</th>
+              <th scope="col">Booked Date and Time</th>
+              <th scope="col">Number of Guests</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var booking in Model)
+            {
+                <partial name="_Booking" model="booking"/>
+            }
+          </tbody>
+        </table>
+}

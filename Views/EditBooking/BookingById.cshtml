@@ -1,0 +1,38 @@
+﻿@using ASP.MVC.Models.ViewModel  
+@{  
+    ViewData["Title"] = "Booking by ID";  
+}  
+@model BookingVM  
+
+<div class="m-3 p-3 text-center">  
+    <h1 class="display-4 text-center">Edit Bookings</h1>  
+
+    <ol class="breadcrumb d-flex justify-content-start p-3 m-5">  
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="AdminPage">Admin Page</a></li>  
+        <li class="breadcrumb-item"><a asp-controller="EditBooking" asp-action="EditBookings">Edit Bookings</a></li>  
+        <li class="breadcrumb-item active">Booking by ID</li>  
+    </ol>  
+</div>  
+
+@if (Model != null)  
+{  
+    <div class="card">  
+        <div class="card-header">  
+            Booking Details  
+        </div>  
+        <div class="card-body">  
+            <p><strong>Booking ID:</strong> @Model.BookingId</p>  
+            <p><strong>Name:</strong> @(Model.Name ?? "N/A")</p>  
+            <p><strong>Email:</strong> @(Model.Email ?? "N/A")</p>  
+            <p><strong>Phone:</strong> @(Model.Phone ?? "N/A")</p>  
+            <p><strong>Table Number:</strong>@Model.TableNum</p>
+            <p><strong>Start Date & Time:</strong> @Model.StartDateTime</p>
+            <p><strong>Table ID:</strong> @Model.TableId</p>
+            <p><strong>Table Capacity:</strong>@Model.TableCapacity</p>
+            <p><strong>Guest Number:</strong> @Model.GuestNum</p>
+            <p><strong>Status:</strong> @Model.Status</p>  
+            <p><strong>Created At:</strong> @Model.CreatedAt</p>  
+            <p><strong>Updated At:</strong> @(Model.UpdatedAt.HasValue ? Model.UpdatedAt : "N/A")</p>  
+        </div>  
+    </div>  
+}
