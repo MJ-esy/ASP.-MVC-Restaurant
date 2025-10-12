@@ -1,4 +1,5 @@
-﻿using ASP.MVC.Models;
+﻿using ASP.MVC.DTOs;
+using ASP.MVC.Models;
 
 namespace ASP.MVC.Services.BookingServices
 {
@@ -16,23 +17,23 @@ namespace ASP.MVC.Services.BookingServices
             return bookingList;
         }
 
-        public async Task<Booking> GetBookingById(int id)
+        public async Task<BookingDTO> GetBookingById(int id)
         {
             var response = await _client.GetAsync($"Bookings/{id}");
-            var booking = await response.Content.ReadFromJsonAsync<Booking>();
+            var booking = await response.Content.ReadFromJsonAsync<BookingDTO>();
             return booking;
         }
 
-        public async Task<List<Booking>> BookingByDate(DateTime date)
+        public async Task<List<BookingDTO>> BookingByDate(DateTime date)
         {
-            var response = await _client.GetAsync($"Bookings/bookingsByDate/{date.ToString("yyyy-MM-dd")}");
-            var bookings = await response.Content.ReadFromJsonAsync<List<Booking>>();
+        var response = await _client.GetAsync($"Bookings/bookingsByDate?date={date}");
+            var bookings = await response.Content.ReadFromJsonAsync<List<BookingDTO>>();
             return bookings;
         }
 
-        public async Task<List<Booking>> BookingsToday(DateTime date)
+        public async Task<List<Booking>> BookingsToday()
         {
-            var response = await _client.GetAsync($"Bookings/bookingsToday/{date.ToString("yyyy-MM-dd")}");
+            var response = await _client.GetAsync($"Bookings/bookingsToday");
             var bookings = await response.Content.ReadFromJsonAsync<List<Booking>>();
             return bookings;
         }
