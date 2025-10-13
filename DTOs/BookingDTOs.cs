@@ -43,4 +43,22 @@
 
     public BookingStatus Status { get; set; }
   }
+
+  public class CreateBookingDTO
+  {
+    public int UserIdFk { get; set; }
+    public string Name { get; set; }
+    public int TableIdFk { get; set; }
+    public DateTime StartDateTime { get; set; }
+    public int GuestNum { get; set; }
+    public string Phone { get; set; }
+  }
+
+  public class UpdateBookingDTO
+  {
+    public int BookingId { get; set; }
+    public DateTime StartDateTime { get; set; }
+    public int GuestNum { get; set; }
+    public BookingStatus Status { get; set; }
+  }
 }
