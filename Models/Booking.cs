@@ -6,6 +6,7 @@
     public int UserIdFk { get; set; }
     public int TableIdFk { get; set; }
     public string Name { get; set; }
+    public string Phone { get; set; }
     public int TableNum { get; set; }
     public DateTime StartDateTime { get; set; }
     public DateTime EndDateTime { get; set; }
