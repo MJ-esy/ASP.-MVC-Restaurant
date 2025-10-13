@@ -1,4 +1,5 @@
-﻿using ASP.MVC.Mapping;
+﻿using ASP.MVC.DTOs;
+using ASP.MVC.Mapping;
 using ASP.MVC.Services.BookingServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -83,6 +84,86 @@ namespace ASP.MVC.Controllers
           return View("EditBookings");
         }
         return View(bookings);
+      }
+      catch (Exception ex)
+      {
+        ViewData["ErrorMessage"] = $"Error: {ex.Message}";
+        return View("EditBookings");
+      }
+    }
+
+    [HttpGet]
+    public IActionResult CreateBooking()
+    {
+      return View("EditBookings");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateBooking(CreateBookingDTO newBooking)
+    {
+      if (!ModelState.IsValid)
+      {
+        ViewData["ErrorMessage"] = "Invalid booking data.";
+        return View("EditBookings");
+      }
+      try
+      {
+        var createdBooking = await _booking.CreateBooking(newBooking);
+        if (createdBooking == null)
+        {
+          ViewData["ErrorMessage"] = "Failed to create booking. Booking == null";
+          return View("EditBookings");
+        }
+        if (createdBooking != null)
+        {
+          ViewData["Success"] = "Booking created successfully!";
+          return View("EditBookings");
+        }
+        else
+        {
+          ViewData["ErrorMessage"] = "Failed to create booking.";
+          return View("EditBookings");
+        }
+      }
+      catch (Exception ex)
+      {
+        ViewData["ErrorMessage"] = $"Error: {ex.Message}";
+        return View("EditBookings");
+      }
+    }
+
+    [HttpGet]
+    public IActionResult UpdateBooking()
+    {
+      return View("EditBookings");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateBooking(int id, UpdateBookingDTO updatedBooking)
+    {
+      if (!ModelState.IsValid)
+      {
+        ViewData["ErrorMessage"] = "Invalid booking data.";
+        return View("EditBookings");
+      }
+      try
+      {
+        var booking = await _booking.UpdateBooking(id, updatedBooking);
+        if (booking == null)
+        {
+          ViewData["ErrorMessage"] = "Failed to update booking. Booking == null";
+          return View("EditBookings");
+        }
+        if (booking != null)
+        {
+          ViewData["Success"] = "Booking updated successfully!";
+          return View("EditBookings");
+        }
+        else
+        {
+          ViewData["ErrorMessage"] = "Failed to update booking.";
+          return View("EditBookings");
+        }
       }
       catch (Exception ex)
       {
