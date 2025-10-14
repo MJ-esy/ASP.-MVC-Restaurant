@@ -25,7 +25,7 @@
     </div>
 }
 
-<div class="accordion" id="accordionExample">
+<div class="accordion mb-4" id="accordionExample">
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -121,7 +121,7 @@
                         <div class="mb-3">
                             <label for="GuestNum" class="form-label">Number of Guests</label>
                             <input type="int" class="form-control" id="GuestNum" name="GuestNum" placeholder="Enter number of Guests">
-                        </div
+                        </div>
                         <div class="mb-3">
                             <label for="Phone" class="form-label">Phone Number</label>
                             <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Enter Phone Number in format: [XXX-XXX-XXXX] ">
@@ -138,12 +138,20 @@
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingSix">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Accordion Item #6
+                Update Booking
             </button>
         </h2>
         <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample" style="">
             <div class="accordion-body">
-                <strong>This is the sixth item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <form asp-action="UpdateBooking" asp-controller="EditBooking" method="get">
+                    <fieldset>
+                        <div>
+                            <label for="UpdateBookingIdInput" class="form-label mt-4">Booking Id</label>
+                            <input type="number" class="form-control mb-4" id="UpdateBookingIdInput" name="id" aria-describedby="BookingId" placeholder="Enter Booking Id:">
+                            <button type="submit" class="btn btn-primary">Get Booking Info</button>
+                        </div>
+                    </fieldset>
+                </form> 
             </div>
         </div>
     </div>

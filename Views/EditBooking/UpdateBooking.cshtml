@@ -1,0 +1,55 @@
+﻿@using ASP.MVC.DTOs
+@{
+    ViewData["Title"] = "Update Booking with ID";
+}
+@model UpdateBookingDTO
+
+<div class="m-3 p-3 text-center">
+    <h1 class="display-4 text-center">Update Booking</h1>
+
+    <ol class="breadcrumb d-flex justify-content-start p-3 m-5">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="AdminPage">Admin Page</a></li>
+        <li class="breadcrumb-item"><a asp-controller="EditBooking" asp-action="EditBookings">Edit Bookings</a></li>
+        <li class="breadcrumb-item active">Update Booking with ID</li>
+    </ol>
+</div>
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger m-3">
+        <p>@ViewData["ErrorMessage"]</p>
+    </div>
+}
+@if (ViewData["Success"] != null)
+{
+    <div class="alert alert-success m-3">
+        <p>@ViewData["Success"]</p>
+    </div>
+}
+
+@if (Model != null)
+{
+    <form method="post" asp-controller="EditBooking" asp-action="UpdateBooking">
+        <div class="mb-3">
+            <label asp-for="BookingId" class="form-label">Booking ID: </label>
+            <input type="int" asp-for="BookingId" name="id" value="@Model.BookingId" readonly />
+        </div>       
+        <div class="mb-3">
+            <label asp-for="StartDateTime" class="form-label">Start Date & Time</label>
+            <input asp-for="StartDateTime" class="form-control" type="datetime-local" value="@Model.StartDateTime"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="GuestNum" class="form-label">Number of Guests</label>
+            <input asp-for="GuestNum" class="form-control" type="number" value="@Model.GuestNum" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Status" class="form-label">Status</label>
+            <select asp-for="Status" class="form-select" value="@Model.Status">
+                <option value="0">Pending</option>
+                <option value="1">Confirmed</option>
+                <option value="2">Cancelled</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Booking</button>
+    </form>
+}

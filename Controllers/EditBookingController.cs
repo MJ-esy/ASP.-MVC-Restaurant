@@ -133,31 +133,59 @@ namespace ASP.MVC.Controllers
     }
 
     [HttpGet]
-    public IActionResult UpdateBooking()
+    public async Task<IActionResult> UpdateBooking(int id)
     {
-      return View("EditBookings");
+
+      try
+      {
+        // Fetch the booking details by ID
+        var booking = await _booking.GetBookingById(id);
+        if (booking == null)
+        {
+          ViewData["ErrorMessage"] = "Booking not found.";
+          return View("EditBookings");
+        }
+
+        // Map the booking to UpdateBookingDTO
+        var updateBookingDTO = new UpdateBookingDTO
+        {
+          BookingId = id,
+          StartDateTime = booking.StartDateTime,
+          GuestNum = booking.GuestNum,
+          Status = booking.Status
+        };
+
+        // Pass the DTO to the view
+        return View(updateBookingDTO);
+      }
+      catch (Exception ex)
+      {
+        ViewData["ErrorMessage"] = $"Error: {ex.Message}";
+        return View("EditBookings");
+      }
     }
 
     [HttpPost]
     public async Task<IActionResult> UpdateBooking(int id, UpdateBookingDTO updatedBooking)
     {
-      if (!ModelState.IsValid)
-      {
-        ViewData["ErrorMessage"] = "Invalid booking data.";
-        return View("EditBookings");
-      }
       try
       {
-        var booking = await _booking.UpdateBooking(id, updatedBooking);
+        var booking = await _booking.GetBookingById(id);
         if (booking == null)
+        {
+          ViewData["ErrorMessage"] = "Booking with ID not found!";
+          return View("EditBookings");
+        }
+        var bookingWithId = await _booking.UpdateBooking(id, updatedBooking);
+        if (bookingWithId == null)
         {
           ViewData["ErrorMessage"] = "Failed to update booking. Booking == null";
           return View("EditBookings");
         }
-        if (booking != null)
+        if (bookingWithId != null)
         {
           ViewData["Success"] = "Booking updated successfully!";
-          return View("EditBookings");
+          return View(bookingWithId);
         }
         else
         {
