@@ -199,5 +199,35 @@ namespace ASP.MVC.Controllers
         return View("EditBookings");
       }
     }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteBooking(int id)
+    {
+      try
+      {
+        var booking = await _booking.GetBookingById(id);
+        if (booking == null)
+        {
+          ViewData["ErrorMessage"] = "Booking with ID not found!";
+          return View("EditBookings");
+        }
+        var isDeleted = await _booking.DeleteBooking(id);
+        if (isDeleted)
+        {
+          ViewData["Success"] = "Booking deleted successfully!";
+          return View("EditBookings");
+        }
+        else
+        {
+          ViewData["ErrorMessage"] = "Failed to delete booking.";
+          return View("EditBookings");
+        }
+      }
+      catch (Exception ex)
+      {
+        ViewData["ErrorMessage"] = $"Error: {ex.Message}";
+        return View("EditBookings");
+      }
+    }
   }
 }

@@ -158,12 +158,20 @@
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingSeven">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                Accordion Item #7
+                Delete Booking
             </button>
         </h2>
         <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample" style="">
             <div class="accordion-body">
-                <strong>This is the seventh item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <form asp-action="DeleteBooking" asp-controller="EditBooking" method="post">
+                    <fieldset>
+                        <div>
+                            <label for="UpdateBookingIdInput" class="form-label mt-4">Booking Id</label>
+                            <input type="number" class="form-control mb-4" id="UpdateBookingIdInput" name="id" aria-describedby="BookingId" placeholder="Enter Booking Id:">
+                            <button type="submit" class="btn btn-primary">Delete Booking</button>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>
