@@ -23,7 +23,7 @@ namespace ASP.MVC.Services.TableServices
     }
     public async Task<IEnumerable<TableDTO>> GetAvailableTable()
     {
-      var response = await _client.GetAsync("Table/getAvailableTable");
+      var response = await _client.GetAsync("Table/getAvailableTables");
       var tables = await response.Content.ReadFromJsonAsync<IEnumerable<TableDTO>>();
       return tables;
     }

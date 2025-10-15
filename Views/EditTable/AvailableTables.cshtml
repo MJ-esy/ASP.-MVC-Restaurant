@@ -1,0 +1,57 @@
+﻿@using ASP.MVC.DTOs
+@{  
+    ViewData["Title"] = "Available Tables";  
+}
+@model IEnumerable<TableDTO>
+<div class="m-3 p-3 text-center">  
+    <h1 class="display-4 text-center">@ViewData["Title"]</h1>  
+
+    <ol class="breadcrumb d-flex justify-content-start p-3 m-5">  
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="AdminPage">Admin Page</a></li>  
+        <li class="breadcrumb-item"><a asp-controller="EditTable" asp-action="EditTables">Edit Tables</a></li>  
+        <li class="breadcrumb-item active">Available Tables</li>  
+    </ol>  
+</div>
+
+@if (ViewData["ErrorMessage"] != null)  
+{  
+    <div class="alert alert-danger m-3">  
+        <p>@ViewData["ErrorMessage"]</p>  
+    </div>  
+}  
+@if (ViewData["Success"] != null)  
+{  
+    <div class="alert alert-success m-3">  
+        <p>@ViewData["Success"]</p>  
+    </div>  
+}  
+
+<table class="table table-striped m-3">  
+    <thead>  
+        <tr>  
+            <th>Table ID</th>  
+            <th>Table Number</th>  
+            <th>Capacity</th>
+        </tr>  
+    </thead>  
+    <tbody>  
+        @if (Model != null)  
+        {  
+            foreach (var table in Model)  
+            {  
+                <tr>  
+                    <td>@table.TableId</td>  
+                    <td>@table.TableNum</td>  
+                    <td>@table.Capacity</td>  
+                </tr>  
+            }  
+        }  
+        else  
+        {  
+            <tr>  
+                <td colspan="5" class="text-center">No tables available.</td>  
+            </tr>  
+        }  
+    </tbody>  
+</table>
+
