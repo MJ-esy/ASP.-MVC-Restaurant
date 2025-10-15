@@ -79,5 +79,68 @@ namespace ASP.MVC.Controllers
         return View("EditTables");
       }
     }
+
+    [HttpGet]
+    public async Task<IActionResult> UpdateTable(int id)
+    {
+      if (id <= 0)
+      {
+        ViewData["ErrorMessage"] = "Invalid table ID. Please provide a valid ID.";
+        return View("EditTables");
+      }
+      try
+      {
+        var table = await _tableServices.GetTableById(id);
+        if (table == null)
+        {
+          ViewData["ErrorMessage"] = "Table with id not found";
+          return View();
+        }
+        var updatedTable = new UpdateTableDTO
+        {
+          TableId = id,
+          TableNum = table.TableNum,
+          Capacity = table.Capacity,
+          IsAvailable = table.IsAvailable
+        };
+        return View(updatedTable);
+      }
+      catch (Exception ex)
+      {
+        ViewData["ErrorMessage"] = $"Error processing dish data: {ex.Message}";
+        return View("EditTables");
+
+      }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateTable(int id, UpdateTableDTO updatedTable)
+    {
+      if (!ModelState.IsValid)
+      {
+        if (id <= 0)
+        {
+          ViewData["ErrorMessage"] = "Invalid table ID.";
+          return View(updatedTable);
+        }
+        return View(updatedTable);
+      }
+      try
+      {
+        var result = await _tableServices.UpdateTableById(id, updatedTable);
+        if (result == null)
+        {
+          ViewData["ErrorMessage"] = "Table update unsuccessful!";
+          return View(updatedTable);
+        }
+        ViewData["Success"] = "Table update successful!";
+        return View(result);
+      }
+      catch (Exception ex)
+      {
+        ViewData["ErrorMessage"] = $"Error processing table data: {ex.Message}";
+        return View("EditTables");
+      }
+    }
   }
 }

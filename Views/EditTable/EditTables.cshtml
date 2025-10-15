@@ -85,6 +85,15 @@
         </h2>  
         <div id="collapseUpdateTableByID" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#editTablesAccordion">  
             <div class="accordion-body"> 
+                <form asp-action="UpdateTable" asp-controller="EditTable" method="get">
+                    <fieldset>
+                        <div>
+                            <label for="TableIdInput" class="form-label mt-4">Table Id</label>
+                            <input type="number" class="form-control mb-4" id="TableIdInput" name="id" aria-describedby="TableId" placeholder="Enter Table Id:">                            
+                            <button type="submit" class="btn btn-primary">Get Table Info</button>
+                        </div>
+                    </fieldset>
+                </form>
             </div>  
         </div>  
     </div>  

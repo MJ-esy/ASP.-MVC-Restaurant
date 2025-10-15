@@ -1,0 +1,57 @@
+﻿@using ASP.MVC.DTOs  
+@{  
+    ViewData["Title"] = "Update Table";  
+}  
+
+@model UpdateTableDTO  
+
+<div class="m-3 p-3 text-center">  
+    <h1 class="display-4 text-center">@ViewData["Title"]</h1>  
+
+    <ol class="breadcrumb d-flex justify-content-start p-3 m-5">  
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="AdminPage">Admin Page</a></li>  
+        <li class="breadcrumb-item"><a asp-controller="EditTable" asp-action="EditTables">Edit Tables</a></li>  
+        <li class="breadcrumb-item active">Update Table</li>  
+    </ol>  
+</div>  
+
+@if (ViewData["ErrorMessage"] != null)  
+{  
+    <div class="alert alert-danger m-3">  
+        <p>@ViewData["ErrorMessage"]</p>  
+    </div>  
+}  
+@if (ViewData["Success"] != null)  
+{  
+    <div class="alert alert-success m-3">  
+        <p>@ViewData["Success"]</p>  
+    </div>  
+}  
+
+<div class="container mt-4">  
+    <form asp-action="UpdateTable" method="post">  
+        <div class="form-group">  
+            <label asp-for="TableId" class="form-label"></label>  
+            <input asp-for="TableId" class="form-control" value="@Model.TableId" readonly />  
+        </div>  
+        <div class="form-group">  
+            <label asp-for="TableNum" class="form-label"></label>  
+            <input asp-for="TableNum" class="form-control" value="@Model.TableNum"/>  
+            <span asp-validation-for="TableNum" class="text-danger"></span>  
+        </div>  
+        <div class="form-group">  
+            <label asp-for="Capacity" class="form-label"></label>  
+            <input asp-for="Capacity" class="form-control" value="@Model.Capacity"></input>  
+            <span asp-validation-for="Capacity" class="text-danger"></span>  
+        </div>  
+        <div class="form-group">  
+            <label asp-for="IsAvailable" class="form-label"></label>  
+            <select asp-for="IsAvailable" class="form-control mb-4" value="@Model.IsAvailable">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+        </div>  
+        <button type="submit" class="btn btn-primary mt-3">Update</button>  
+    </form>  
+</div>
+
