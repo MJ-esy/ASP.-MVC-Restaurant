@@ -34,8 +34,28 @@ namespace ASP.MVC.Controllers
 
         ViewData["ErrorMessage"] = $"Error processing dish data: {ex.Message}";
         return View("EditTables");
+      }      
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> AvailableTables()
+    {
+      try
+      {
+        var tables = await _tableServices.GetAvailableTable();
+        if (tables == null || !tables.Any())
+        {
+          ViewData["ErrorMessage"] = "No tables found.";
+          return View("EditTables");
+        }
+        return View(tables);
       }
-      
+      catch (Exception ex)
+      {
+
+        ViewData["ErrorMessage"] = $"Error processing dish data: {ex.Message}";
+        return View("EditTables");
+      }
     }
   }
 }
