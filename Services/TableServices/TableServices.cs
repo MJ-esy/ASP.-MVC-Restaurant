@@ -27,11 +27,15 @@ namespace ASP.MVC.Services.TableServices
       var tables = await response.Content.ReadFromJsonAsync<IEnumerable<TableDTO>>();
       return tables;
     }
-    public async Task<bool> SetTableAvailability(int id)
+    public async Task<bool> SetTableAvailability(int id, SetTableAvailabilityDTO tableAvailability)
     {
-      var table = await _client.PatchAsync($"Table/setTableAvailability/{id}", null);
-      if (table == null) return false;
-      return table.IsSuccessStatusCode;
+      var content = await GetTableById(id);
+      if (content == null) return false;
+      content.IsAvailable = tableAvailability.IsAvailable;
+      var toJson = JsonContent.Create(content);
+      var response = await _client.PatchAsync($"Table/setTableAvailability/{id}", toJson);
+      if (!response.IsSuccessStatusCode) return false;
+      return response.IsSuccessStatusCode;
     }
     public async Task<UpdateTableDTO> UpdateTableById(int id, UpdateTableDTO updateTable)
     {

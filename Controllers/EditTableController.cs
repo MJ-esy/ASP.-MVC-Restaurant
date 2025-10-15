@@ -1,4 +1,5 @@
-﻿using ASP.MVC.Services.TableServices;
+﻿using ASP.MVC.DTOs;
+using ASP.MVC.Services.TableServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.MVC.Controllers
@@ -34,7 +35,7 @@ namespace ASP.MVC.Controllers
 
         ViewData["ErrorMessage"] = $"Error processing dish data: {ex.Message}";
         return View("EditTables");
-      }      
+      }
     }
 
     [HttpGet]
@@ -53,6 +54,27 @@ namespace ASP.MVC.Controllers
       catch (Exception ex)
       {
 
+        ViewData["ErrorMessage"] = $"Error processing dish data: {ex.Message}";
+        return View("EditTables");
+      }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SetTableAvailability(int id, SetTableAvailabilityDTO tableAvailability)
+    {
+      try
+      {
+        var result = await _tableServices.SetTableAvailability(id, tableAvailability);
+        if (!result)
+        {
+          ViewData["ErrorMessage"] = "Table availability update unsuccessful!";
+          return View("EditTables");
+        }
+        ViewData["Success"] = $"Table availability update successful! Table Available: {tableAvailability.IsAvailable}";
+        return View("EditTables", result);
+      }
+      catch (Exception ex)
+      {
         ViewData["ErrorMessage"] = $"Error processing dish data: {ex.Message}";
         return View("EditTables");
       }
